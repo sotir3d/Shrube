@@ -24,10 +24,7 @@ public class PlayerMovement : MonoBehaviour
     float jumpForce;
     float maxJumpForce = 200;
     float jumpForceDecrease = 20;
-
-    Vector2 newPosition;
-
-    Quaternion newRotation;
+    
 
 
     // Use this for initialization
@@ -35,11 +32,6 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
-        newPosition = transform.position;
-        //jumpForce = maxJumpForce;
-
-        newRotation = transform.rotation;
     }
 
     // Update is called once per frame
@@ -47,21 +39,14 @@ public class PlayerMovement : MonoBehaviour
     {
         Debug.Log(Input.GetAxis("Horizontal") * speed);
         
-
-        rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
-
-        //newPosition = transform.position;
-        //newPosition.x += Input.GetAxis("Horizontal") * speed * Time.deltaTime;
-
-        //transform.position = newPosition;
-
-
         if (Input.GetAxis("Horizontal") < 0)
         {
+            rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
             spriteRenderer.flipX = true;
         }
         else if (Input.GetAxis("Horizontal") > 0)
         {
+            rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
             spriteRenderer.flipX = false;
         }
 
