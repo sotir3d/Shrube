@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public bool canJump;
+
     enum JumpState
     {
         startJumping,
@@ -26,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     Vector2 newPosition;
 
     Quaternion newRotation;
-    
+
 
     // Use this for initialization
     void Start()
@@ -43,53 +45,58 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed * Time.deltaTime, 0);
+        Debug.Log(Input.GetAxis("Horizontal") * speed);
+        
 
-        newPosition = transform.position;
-        newPosition.x += Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+        rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
 
-        transform.position = newPosition;
+        //newPosition = transform.position;
+        //newPosition.x += Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+
+        //transform.position = newPosition;
 
 
         if (Input.GetAxis("Horizontal") < 0)
         {
-            newRotation.y = 180;
-            transform.rotation = newRotation;
+            spriteRenderer.flipX = true;
         }
         else if (Input.GetAxis("Horizontal") > 0)
         {
-            newRotation.y = 0;
-            transform.rotation = newRotation;
+            spriteRenderer.flipX = false;
         }
 
-        if (Input.GetButtonDown("Jump"))
+
+        if(canJump)
         {
-            Debug.Log("start");
-            jumpForce = maxJumpForce;
-            jumpState = JumpState.startJumping;
-            rb.velocity = new Vector2(0, 0);
+            if (Input.GetButtonDown("Jump"))
+            {
+                Debug.Log("start");
+                jumpForce = maxJumpForce;
+                jumpState = JumpState.startJumping;
+                rb.velocity = new Vector2(0, 0);
+            }
         }
-        
+
         if (Input.GetButton("Jump"))
         {
             jumpState = JumpState.jumping;
         }
 
-        
         if (Input.GetButtonUp("Jump"))
         {
             jumpForce = 0;
         }
+        
     }
 
     private void FixedUpdate()
     {
-        switch(jumpState)
+        switch (jumpState)
         {
             case JumpState.jumping:
                 rb.AddForce(new Vector2(0f, jumpForce));
                 jumpForce -= jumpForceDecrease; //or whatever amount
-                
+
                 if (jumpForce < 0f)
                     jumpForce = 0f;
                 break;
