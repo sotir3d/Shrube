@@ -5,7 +5,7 @@ using UnityEngine;
 public class GrapplingHookScript : MonoBehaviour
 {
 
-    DistanceJoint2D joint;;
+    DistanceJoint2D joint;
 
 	// Use this for initialization
 	void Start()

@@ -19,12 +19,14 @@ public class PlayerMovement : MonoBehaviour
 
     SpriteRenderer spriteRenderer;
 
-    float speed = 10;
+    float speed = 8;
 
     float jumpForce;
-    float maxJumpForce = 200;
-    float jumpForceDecrease = 20;
-    
+    //float maxJumpForce = 135;
+    //float jumpForceDecrease = 7;
+    float maxJumpForce = 250;
+    float jumpForceDecrease = 27;
+
 
 
     // Use this for initialization
