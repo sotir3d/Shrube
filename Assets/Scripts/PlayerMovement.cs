@@ -6,6 +6,8 @@ public class PlayerMovement : MonoBehaviour
 {
     public bool canJump;
 
+    public GameObject noiseLight;
+
     enum JumpState
     {
         startJumping,
@@ -38,9 +40,7 @@ public class PlayerMovement : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        Debug.Log(Input.GetAxis("Horizontal") * speed);
-        
+    {        
         if (Input.GetAxis("Horizontal") < 0)
         {
             rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
@@ -57,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetButtonDown("Jump"))
             {
+                Instantiate(noiseLight, transform.position, transform.rotation);
                 Debug.Log("start");
                 jumpForce = maxJumpForce;
                 jumpState = JumpState.startJumping;
