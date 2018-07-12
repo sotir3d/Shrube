@@ -40,24 +40,34 @@ public class PlayerMovement : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {        
-        if (Input.GetAxis("Horizontal") < 0)
+    {
+        //if (Input.GetAxis("Horizontal") < 0)
+        //{
+        //    rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
+        //    spriteRenderer.flipX = true;
+        //}
+        //else if (Input.GetAxis("Horizontal") > 0)
+        //{
+        //    rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
+        //    spriteRenderer.flipX = false;
+        //}
+
+        if (Input.GetAxis("Horizontal") != 0)
         {
             rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
-            spriteRenderer.flipX = true;
-        }
-        else if (Input.GetAxis("Horizontal") > 0)
-        {
-            rb.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, rb.velocity.y);
-            spriteRenderer.flipX = false;
+            spriteRenderer.flipX = (Input.GetAxis("Horizontal") < 0 ? true : false);
         }
 
 
-        if(canJump)
+        if (canJump)
         {
             if (Input.GetButtonDown("Jump"))
             {
-                Instantiate(noiseLight, transform.position, transform.rotation);
+                GameObject jumpLight;
+                jumpLight = Instantiate(noiseLight, transform.position, transform.rotation);
+
+                jumpLight.GetComponent<LightScript>().maxRange = 25;
+
                 Debug.Log("start");
                 jumpForce = maxJumpForce;
                 jumpState = JumpState.startJumping;
@@ -74,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
         {
             jumpForce = 0;
         }
-        
+
     }
 
     private void FixedUpdate()

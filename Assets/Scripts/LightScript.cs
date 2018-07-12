@@ -24,7 +24,7 @@ public class LightScript : MonoBehaviour
 
         pointLight.range = 0;
 
-        maxRange = 25;
+        //maxRange = 25;
 
         //offset the position on the z axis
         fixedPosition = transform.position;
